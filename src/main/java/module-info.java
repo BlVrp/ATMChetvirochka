@@ -3,6 +3,7 @@ module com.example.atmchetvirochka {
     requires javafx.fxml;
 
     requires org.kordamp.bootstrapfx.core;
+    requires java.compiler;
 
     opens com.example.atmchetvirochka to javafx.fxml;
     exports com.example.atmchetvirochka;
