@@ -1,4 +1,4 @@
-package com.example.atmchetvirochka;
+package com.example.atmchetvirochka.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

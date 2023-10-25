@@ -6,4 +6,6 @@ module com.example.atmchetvirochka {
 
     opens com.example.atmchetvirochka to javafx.fxml;
     exports com.example.atmchetvirochka;
+    exports com.example.atmchetvirochka.controller;
+    opens com.example.atmchetvirochka.controller to javafx.fxml;
 }
