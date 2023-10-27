@@ -2,11 +2,22 @@ package com.example.atmchetvirochka.model.general;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class TransactionInputInfo implements Mappable {
     public final String card_number;
     public final int amount;
     public final String phone_number;
+
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        TransactionInputInfo transactionInputInfo = (TransactionInputInfo) obj;
+        return Objects.equals(card_number, transactionInputInfo.card_number) &&
+                Objects.equals(amount, transactionInputInfo.amount) &&
+                Objects.equals(phone_number, transactionInputInfo.phone_number);
+    }
     public TransactionInputInfo(String card_number, int amount, String phone_number){
         this.card_number = card_number;
         this.amount = amount;
