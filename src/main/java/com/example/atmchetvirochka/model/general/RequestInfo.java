@@ -14,9 +14,9 @@ public class RequestInfo {
         AUTHORIZE
     }
     public final String ATMid;
-    public final Map<String, Object> arguments;
+    public final String arguments;
     public final RequestType requestType;
-    public RequestInfo(String ATMid, Map<String, Object> arguments, RequestType requestType){
+    public RequestInfo(String ATMid, String arguments, RequestType requestType){
         this.ATMid = ATMid;
         this.arguments = arguments;
         this.requestType = requestType;

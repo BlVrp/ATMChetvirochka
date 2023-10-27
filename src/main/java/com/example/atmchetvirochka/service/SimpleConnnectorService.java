@@ -16,8 +16,6 @@ public class SimpleConnnectorService implements ConnectorService{
 
     Cypherator cypherator = new SimpleCypherator();
 
-    Decypherator decypherator = new SimpleDecypherator();
-
     SimpleConnnectorService(Bank bank, String ATMid){
         this.bank = bank;
         this.ATMid = ATMid;
@@ -27,7 +25,7 @@ public class SimpleConnnectorService implements ConnectorService{
     public ResponseInfo<NullType> sendMoneyByCardNumber(LoginInfo loginInfo, TransactionInputInfo transactionInputInfo) {
         Map<String, Object>args = loginInfo.toMap();
         args.putAll(transactionInputInfo.toMap());
-        return (ResponseInfo<NullType>) bank.handleRequest(new RequestInfo(ATMid, args, RequestInfo.RequestType.SEND_BY_CARD_NUM));
+        return (ResponseInfo<NullType>) bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(args), RequestInfo.RequestType.SEND_BY_CARD_NUM));
     }
 
     @Override
@@ -35,7 +33,7 @@ public class SimpleConnnectorService implements ConnectorService{
     public ResponseInfo<NullType> sendMoneyByPhoneNumber(LoginInfo loginInfo, TransactionInputInfo transactionInputInfo) {
         Map<String, Object>args = loginInfo.toMap();
         args.putAll(transactionInputInfo.toMap());
-        return (ResponseInfo<NullType>) bank.handleRequest(new RequestInfo(ATMid, args, RequestInfo.RequestType.SEND_BY_PHONE_NUM));
+        return (ResponseInfo<NullType>) bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(args), RequestInfo.RequestType.SEND_BY_PHONE_NUM));
     }
 
     @Override
@@ -46,31 +44,31 @@ public class SimpleConnnectorService implements ConnectorService{
         }
         Map<String, Object>args = loginInfo.toMap();
         args.put("amount", amount);
-        RequestInfo requestInfo = new RequestInfo(ATMid, args, RequestInfo.RequestType.WITHDRAW);
+        RequestInfo requestInfo = new RequestInfo(ATMid, cypherator.cypher(args), RequestInfo.RequestType.WITHDRAW);
         return (ResponseInfo<NullType>) bank.handleRequest(requestInfo);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public ResponseInfo<Boolean> authorize(LoginInfo loginInfo) {
-        return (ResponseInfo<Boolean>) bank.handleRequest(new RequestInfo(ATMid, loginInfo.toMap(), RequestInfo.RequestType.AUTHORIZE));
+        return (ResponseInfo<Boolean>) bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.AUTHORIZE));
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public int getBalance(LoginInfo loginInfo) {
-        return ((ResponseInfo<Integer>)bank.handleRequest(new RequestInfo(ATMid, loginInfo.toMap(), RequestInfo.RequestType.GET_BALANCE))).data;
+        return ((ResponseInfo<Integer>)bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.GET_BALANCE))).data;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public ResponseInfo<CardDTO> getCardInformation(LoginInfo loginInfo) {
-        return (ResponseInfo<CardDTO>)bank.handleRequest(new RequestInfo(ATMid, loginInfo.toMap(), RequestInfo.RequestType.GET_CARD_INFO));
+        return (ResponseInfo<CardDTO>)bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.GET_CARD_INFO));
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public ResponseInfo<AccountDTO> getAccountInformation(LoginInfo loginInfo) {
-        return (ResponseInfo<AccountDTO>)bank.handleRequest(new RequestInfo(ATMid, loginInfo.toMap(), RequestInfo.RequestType.GET_PERSONAL_INFO));
+        return (ResponseInfo<AccountDTO>)bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.GET_PERSONAL_INFO));
     }
 }
