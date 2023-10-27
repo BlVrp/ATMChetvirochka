@@ -14,9 +14,10 @@ public class SimpleConnnectorService implements ConnectorService{
     Bank bank;
     String ATMid;
 
-    Cypherator cypherator = new SimpleCypherator();
+    Cypherator cypherator;
 
-    SimpleConnnectorService(Bank bank, String ATMid){
+    SimpleConnnectorService(Bank bank, String ATMid, Cypherator cypherator){
+        this.cypherator = cypherator;
         this.bank = bank;
         this.ATMid = ATMid;
     }
@@ -39,9 +40,6 @@ public class SimpleConnnectorService implements ConnectorService{
     @Override
     @SuppressWarnings("unchecked")
     public ResponseInfo<NullType> withdrawMoney(LoginInfo loginInfo, int amount) {
-        if(amount<0){
-            return new ResponseInfo<>(false, "Invalid amount of money", null);
-        }
         Map<String, Object>args = loginInfo.toMap();
         args.put("amount", amount);
         RequestInfo requestInfo = new RequestInfo(ATMid, cypherator.cypher(args), RequestInfo.RequestType.WITHDRAW);
@@ -56,8 +54,8 @@ public class SimpleConnnectorService implements ConnectorService{
 
     @Override
     @SuppressWarnings("unchecked")
-    public long getBalance(LoginInfo loginInfo) {
-        return ((ResponseInfo<Long>)bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.GET_BALANCE))).data;
+    public ResponseInfo<Long> getBalance(LoginInfo loginInfo) {
+        return ((ResponseInfo<Long>)bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.GET_BALANCE)));
     }
 
     @Override

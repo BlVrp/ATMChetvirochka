@@ -1,5 +1,7 @@
 package com.example.atmchetvirochka.model.general;
 
+import java.util.Objects;
+
 public class RequestInfo {
     public enum RequestType{
         GET_PERSONAL_INFO,
@@ -18,5 +20,12 @@ public class RequestInfo {
         this.ATMid = ATMid;
         this.arguments = arguments;
         this.requestType = requestType;
+    }
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        RequestInfo requestInfo = (RequestInfo) obj;
+        return Objects.equals(ATMid, requestInfo.ATMid) && Objects.equals(arguments, requestInfo.arguments) && Objects.equals(requestType, requestInfo.requestType);
     }
 }

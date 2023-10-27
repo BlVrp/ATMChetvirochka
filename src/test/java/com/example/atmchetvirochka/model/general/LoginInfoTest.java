@@ -29,4 +29,14 @@ class LoginInfoTest {
         LoginInfo loginInfo = new LoginInfo("132", "000");
         assertEquals(loginInfo.getPin(), "000");
     }
+
+    @Test
+    void fromMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("pin", "2133");
+        map.put("card_number", "00000000");
+        LoginInfo loginInfo = LoginInfo.fromMap(map);
+        assertEquals(loginInfo.getPin(), map.get("pin"));
+        assertEquals(loginInfo.getCard_number(), map.get("card_number"));
+    }
 }

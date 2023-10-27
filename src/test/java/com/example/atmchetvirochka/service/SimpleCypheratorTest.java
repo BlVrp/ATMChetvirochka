@@ -17,6 +17,5 @@ class SimpleCypheratorTest {
         expectedMap.put("amount", 325);
         expectedMap.put("phone_number", null);
         assertEquals(simpleCypherator.decypher(simpleCypherator.cypher(expectedMap) ),expectedMap);
-
     }
 }
