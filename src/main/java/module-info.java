@@ -4,6 +4,7 @@ module com.example.atmchetvirochka {
 
     requires org.kordamp.bootstrapfx.core;
     requires java.compiler;
+    requires java.sql;
 
     opens com.example.atmchetvirochka to javafx.fxml;
     exports com.example.atmchetvirochka;

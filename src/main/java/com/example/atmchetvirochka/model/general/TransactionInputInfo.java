@@ -20,4 +20,10 @@ public class TransactionInputInfo implements Mappable {
         map.put("phone_number", phone_number);
         return map;
     }
+
+    public static TransactionInputInfo fromMap(Map<String, Object> map) {
+        return new TransactionInputInfo((String) map.get("card_number"),
+                (int) map.get("amount"),
+                (String) map.get("phone_number"));
+    }
 }

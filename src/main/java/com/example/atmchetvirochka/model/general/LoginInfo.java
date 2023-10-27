@@ -25,4 +25,9 @@ public class LoginInfo implements Mappable {
       map.put("pin", pin);
       return map;
     }
+
+    public static LoginInfo fromMap(Map<String, Object> map) {
+        return new LoginInfo((String) map.get("card_number"),
+                (String) map.get("pin"));
+    }
 }

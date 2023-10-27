@@ -13,9 +13,7 @@ public interface ConnectorService {
     ResponseInfo<NullType> sendMoneyByPhoneNumber(LoginInfo loginInfo, TransactionInputInfo transactionInputInfo);
     ResponseInfo<NullType> withdrawMoney(LoginInfo loginInfo, int amount);
     ResponseInfo<Boolean> authorize(LoginInfo loginInfo);
-    int getBalance(LoginInfo loginInfo);
+    long getBalance(LoginInfo loginInfo);
     ResponseInfo<CardDTO> getCardInformation(LoginInfo loginInfo);
     ResponseInfo<AccountDTO> getAccountInformation(LoginInfo loginInfo);
-
-
 }

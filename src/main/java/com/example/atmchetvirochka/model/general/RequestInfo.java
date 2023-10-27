@@ -1,7 +1,5 @@
 package com.example.atmchetvirochka.model.general;
 
-import java.util.Map;
-
 public class RequestInfo {
     public enum RequestType{
         GET_PERSONAL_INFO,

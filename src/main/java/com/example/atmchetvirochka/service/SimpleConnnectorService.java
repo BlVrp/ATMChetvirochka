@@ -56,8 +56,8 @@ public class SimpleConnnectorService implements ConnectorService{
 
     @Override
     @SuppressWarnings("unchecked")
-    public int getBalance(LoginInfo loginInfo) {
-        return ((ResponseInfo<Integer>)bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.GET_BALANCE))).data;
+    public long getBalance(LoginInfo loginInfo) {
+        return ((ResponseInfo<Long>)bank.handleRequest(new RequestInfo(ATMid, cypherator.cypher(loginInfo.toMap()), RequestInfo.RequestType.GET_BALANCE))).data;
     }
 
     @Override
