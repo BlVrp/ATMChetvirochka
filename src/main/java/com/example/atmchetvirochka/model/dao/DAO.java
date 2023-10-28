@@ -8,9 +8,15 @@ import java.sql.Statement;
 public class DAO {
     protected Connection connection;
     protected Statement statement;
+
+    private String connectionUrl;
+
+    public DAO(String connectionUrl){
+        this.connectionUrl = connectionUrl;
+    }
     protected boolean openConnection() {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bankDatabase.sqlite");
+            connection = DriverManager.getConnection(connectionUrl);
             statement = connection.createStatement();
         }
         catch (SQLException e){

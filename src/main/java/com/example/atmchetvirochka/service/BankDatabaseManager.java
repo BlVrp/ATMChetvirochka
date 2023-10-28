@@ -1,5 +1,6 @@
 package com.example.atmchetvirochka.service;
 
+import com.example.atmchetvirochka.ConnectionConstantHolder;
 import com.example.atmchetvirochka.model.dao.AccountDAO;
 import com.example.atmchetvirochka.model.dao.CardDAO;
 import com.example.atmchetvirochka.model.dao.TransactionDAO;
@@ -19,8 +20,8 @@ public class BankDatabaseManager {
         return transactionDAO;
     }
     public BankDatabaseManager(){
-        transactionDAO = new TransactionDAO();
-        cardDAO = new CardDAO();
-        accountDAO = new AccountDAO();
+        transactionDAO = new TransactionDAO(ConnectionConstantHolder.prodConnectionUrl);
+        cardDAO = new CardDAO(ConnectionConstantHolder.prodConnectionUrl);
+        accountDAO = new AccountDAO(ConnectionConstantHolder.prodConnectionUrl);
     }
 }

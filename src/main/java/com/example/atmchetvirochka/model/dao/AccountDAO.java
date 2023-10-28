@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AccountDAO extends DAO{
-    public AccountDAO(){}
+    public AccountDAO(String connectionUrl){
+        super(connectionUrl);
+    }
 
     public boolean create(AccountDTO dto){
         if(openConnection()){

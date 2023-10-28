@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TransactionDAO extends DAO{
-    public TransactionDAO(){}
+    public TransactionDAO(String connectionUrl){
+        super(connectionUrl);
+    }
 
     public ArrayList<TransactionDTO> findMany(String sqlFilter){
         //placeholder

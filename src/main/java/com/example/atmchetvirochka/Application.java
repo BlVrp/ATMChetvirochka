@@ -94,12 +94,12 @@ public class Application extends javafx.application.Application {
         }
     }
     private static void fillEmptyDatabase(){
-        AccountDAO accountDAO = new AccountDAO();
+        AccountDAO accountDAO = new AccountDAO(ConnectionConstantHolder.prodConnectionUrl);
         AccountDTO accountDTO = new AccountDTO(0, "Heg", "SoN", Date.valueOf(LocalDate.now()), "012313");
         AccountDTO accountDTO1 = new AccountDTO(1, "Ia", "oE", Date.valueOf(LocalDate.now()), "013242313");
         accountDAO.create(accountDTO);
         accountDAO.create(accountDTO1);
-        CardDAO cardDAO = new CardDAO();
+        CardDAO cardDAO = new CardDAO(ConnectionConstantHolder.prodConnectionUrl);
         CardDTO cardDTO = new CardDTO("12345678", "aaa", "Heg Son",
                 2030, 6, "1111", 10000, 1, 5, 1);
         CardDTO cardDTO1 = new CardDTO("11111111", "aaa", "Ia oE",

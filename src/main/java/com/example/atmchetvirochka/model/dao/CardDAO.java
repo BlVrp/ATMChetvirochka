@@ -14,7 +14,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class CardDAO extends DAO{
-    public CardDAO(){}
+    public CardDAO(String connectionUrl){
+        super(connectionUrl);
+    }
 
     public boolean create(CardDTO dto){
         if(openConnection()){
