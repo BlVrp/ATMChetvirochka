@@ -5,7 +5,13 @@ import com.example.atmchetvirochka.model.general.ResponseInfo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class AccountDAO extends DAO{
     public AccountDAO(String connectionUrl){
@@ -28,11 +34,6 @@ public class AccountDAO extends DAO{
         return false;
     }
 
-    public ArrayList<AccountDTO> findMany(String sqlFilter){
-        //placeholder
-        return null;
-    }
-
     public ResponseInfo<AccountDTO> findOneById(long id){
         AccountDTO accountDTO = null;
         String message = null;
@@ -40,8 +41,14 @@ public class AccountDAO extends DAO{
             try {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM ACCOUNT WHERE account_id = "+id);
                 if(resultSet.next()){
+                    String dateString = resultSet.getString("birth");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+                    ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString, formatter);
+                    Date result = Date.from(zonedDateTime.toInstant());
                     accountDTO = new AccountDTO(resultSet.getLong("account_id"), resultSet.getString("owner_name"),
-                            resultSet.getString("surname"), resultSet.getDate("birth"), resultSet.getString("phone_number"));
+                            resultSet.getString("owner_surname"),
+                            result,
+                            resultSet.getString("phone_number"));
                 }
                 else message = "Account is not found";
             } catch (SQLException e) {
@@ -49,6 +56,7 @@ public class AccountDAO extends DAO{
             }
             closeConnection();
         }
+
         return new ResponseInfo<>(accountDTO!=null, message, accountDTO);
     }
 
