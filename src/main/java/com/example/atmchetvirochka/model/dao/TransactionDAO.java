@@ -32,6 +32,6 @@ public class TransactionDAO extends DAO{
             }
             closeConnection();
         }
-        return new ResponseInfo<>(transactionDTO==null, message, transactionDTO);
+        return new ResponseInfo<>(transactionDTO!=null, message, transactionDTO);
     }
 }

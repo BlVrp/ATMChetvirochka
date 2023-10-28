@@ -47,7 +47,7 @@ public class AccountDAO extends DAO{
             }
             closeConnection();
         }
-        return new ResponseInfo<>(accountDTO==null, message, accountDTO);
+        return new ResponseInfo<>(accountDTO!=null, message, accountDTO);
     }
 
     public boolean updateOne(long id, AccountDTO dto){

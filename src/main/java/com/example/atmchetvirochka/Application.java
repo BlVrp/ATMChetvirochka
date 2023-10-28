@@ -1,15 +1,20 @@
 package com.example.atmchetvirochka;
 
+import com.example.atmchetvirochka.model.dao.AccountDAO;
+import com.example.atmchetvirochka.model.dao.CardDAO;
+import com.example.atmchetvirochka.model.dto.AccountDTO;
+import com.example.atmchetvirochka.model.dto.CardDTO;
+import com.example.atmchetvirochka.model.general.LoginInfo;
+import com.example.atmchetvirochka.model.general.TransactionInputInfo;
+import com.example.atmchetvirochka.service.Bank;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 
 public class Application extends javafx.application.Application {
     @Override
@@ -22,7 +27,10 @@ public class Application extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
-        if(!(new File("src/main/resources/bankDatabase.sqlite").exists())) createEmptyDatabase();
+        if(!(new File("src/main/resources/bankDatabase.sqlite").exists())){
+            createEmptyDatabase();
+            fillEmptyDatabase();
+        }
         launch();
     }
 
@@ -83,5 +91,24 @@ public class Application extends javafx.application.Application {
                 }
             }
         }
+    }
+    private static void fillEmptyDatabase(){
+        AccountDAO accountDAO = new AccountDAO();
+        AccountDTO accountDTO = new AccountDTO(0, "Heg", "SoN", Date.valueOf(LocalDate.now()), "012313");
+        AccountDTO accountDTO1 = new AccountDTO(1, "Ia", "oE", Date.valueOf(LocalDate.now()), "013242313");
+        accountDAO.create(accountDTO);
+        accountDAO.create(accountDTO1);
+        CardDAO cardDAO = new CardDAO();
+        CardDTO cardDTO = new CardDTO("12345678", "aaa", "Heg Son",
+                2030, 6, "1111", 10000, 1, 5, 1);
+        CardDTO cardDTO1 = new CardDTO("11111111", "aaa", "Ia oE",
+                2030, 6, "1111", 5000, 2, 5, 1);
+        cardDAO.create(cardDTO);
+        cardDAO.create(cardDTO1);
+
+        Bank bank = new Bank();
+        LoginInfo loginInfo = new LoginInfo("12345678", "1111");
+        System.out.println(bank.sendMoneyByPhoneNumber(loginInfo,
+                new TransactionInputInfo(null, 1000, "013242313")).message);
     }
 }

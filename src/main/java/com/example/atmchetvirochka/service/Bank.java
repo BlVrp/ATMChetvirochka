@@ -60,7 +60,6 @@ public class Bank {
         if(!authorize(loginInfo)) return new ResponseInfo<>(false, "Authorization failed", null);
         TransactionDTO transactionDTO = new TransactionDTO((String) loginInfo.toMap().get("card_number"),
                 null, moneyAmount);
-        bankDatabaseManager.cardDAO.makeTransfer(transactionDTO);
         return bankDatabaseManager.cardDAO.makeTransfer(transactionDTO);
     }
 

@@ -23,7 +23,7 @@ public class CardDAO extends DAO{
                 statement.executeUpdate("INSERT INTO CARD (card_number," +
                         " cvv, full_name, due_to_year, due_to_month, account_id, pin, balance, attempts, is_default) "+
                         "VALUES ('"+dto.card_number+"', '"+dto.cvv+"', '"+dto.full_name+"', "+dto.due_to_year+", "
-                        + dto.due_to_month + ", " + dto.account_id + ", '" + dto.pin + "', " + ", " + dto.balance +
+                        + dto.due_to_month + ", " + dto.account_id + ", '" + dto.pin + "', " + dto.balance +
                         ", " + dto.attempts + ", "+ dto.is_default+")");
             } catch (SQLException e) {
                 success = false;
@@ -58,7 +58,7 @@ public class CardDAO extends DAO{
             }
             closeConnection();
         }
-        return new ResponseInfo<>(cardDTO==null, message, cardDTO);
+        return new ResponseInfo<>(cardDTO!=null, message, cardDTO);
     }
 
     public ResponseInfo<CardDTO> findOneByPhone(String phone){
@@ -66,8 +66,8 @@ public class CardDAO extends DAO{
         String message = null;
         if(openConnection()){
             try {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM CARD WHERE account_id IN (" +
-                        " SELECT account_id FROM ACCOUNT WHERE phone_number = '" + phone + "') AND is_default = 1");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM CARD WHERE is_default = 1 AND account_id IN (" +
+                        "SELECT account_id FROM ACCOUNT WHERE phone_number = '" + phone + "')");
                 if(resultSet.next()){
                     cardDTO = new CardDTO(resultSet.getString("card_number"), resultSet.getString("cvv"),
                             resultSet.getString("full_name"), resultSet.getInt("due_to_year"),
@@ -78,10 +78,11 @@ public class CardDAO extends DAO{
                 else message = "Default card is not found";
             } catch (SQLException e) {
                 message = e.getMessage();
+                e.printStackTrace();
             }
             closeConnection();
         }
-        return new ResponseInfo<>(cardDTO==null, message, cardDTO);
+        return new ResponseInfo<>(cardDTO!=null, message, cardDTO);
     }
 
     public boolean updateOne(String id, CardDTO dto){
@@ -125,8 +126,10 @@ public class CardDAO extends DAO{
             try {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM CARD WHERE card_number = '"+dto.from+"'");
                 if(resultSet.next()){
+                    if(resultSet.getLong("balance")<dto.amount) message = "Not enough money";
+                    else
                     if(dto.to == null){
-                        statement.executeUpdate("UPDATE CARD SET balance -= "+dto.amount +" WHERE card_number = '"+dto.from+"'");
+                        statement.executeUpdate("UPDATE CARD SET balance = balance - "+dto.amount +" WHERE card_number = '"+dto.from+"'");
                         statement.executeUpdate("INSERT INTO BANK_TRANSACTION (sender," +
                                 " amount, transaction_date, transaction_time) "+
                                 "VALUES ('"+dto.from+"', "+dto.amount+", '"+ Date.valueOf(LocalDate.now()) +
@@ -135,8 +138,8 @@ public class CardDAO extends DAO{
                     else
                     if(statement.executeQuery("SELECT * FROM CARD WHERE card_number = '"+dto.to+"'").next()){
                         if(resultSet.getLong("balance") >= dto.amount){
-                            statement.executeUpdate("UPDATE CARD SET balance -= "+dto.amount +" WHERE card_number = '"+dto.from+"'");
-                            statement.executeUpdate("UPDATE CARD SET balance += "+dto.amount +" WHERE card_number = '"+dto.to+"'");
+                            statement.executeUpdate("UPDATE CARD SET balance = balance - "+dto.amount +" WHERE card_number = '"+dto.from+"'");
+                            statement.executeUpdate("UPDATE CARD SET balance = balance + "+dto.amount +" WHERE card_number = '"+dto.to+"'");
                             statement.executeUpdate("INSERT INTO BANK_TRANSACTION (sender," +
                                     " receiver, amount, transaction_date, transaction_time) "+
                                             "VALUES ('"+dto.from+"', '"+dto.to+"', "+dto.amount+", '"+ Date.valueOf(LocalDate.now()) +
