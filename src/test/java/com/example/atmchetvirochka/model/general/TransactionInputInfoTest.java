@@ -15,9 +15,9 @@ class TransactionInputInfoTest {
     static void setUp(){
         transactionInputInfo = new TransactionInputInfo("12341", 325, null);
         expectedMap = new HashMap<>();
-        expectedMap.put("card_number", "12341");
+        expectedMap.put("destination_card_number", "12341");
         expectedMap.put("amount", 325);
-        expectedMap.put("phone_number", null);
+        expectedMap.put("destination_phone_number", null);
     }
 
     @Test

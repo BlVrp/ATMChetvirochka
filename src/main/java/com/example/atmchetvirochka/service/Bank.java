@@ -16,14 +16,14 @@ public class Bank {
     private final BankDatabaseManager bankDatabaseManager;
     private final Cypherator cypherator;
 
-    public Bank(){
-        bankDatabaseManager = new BankDatabaseManager();
+    public Bank(BankDatabaseManager bankDatabaseManager){
+        this.bankDatabaseManager = bankDatabaseManager;
         cypherator = new SimpleCypherator();
     }
 
     private boolean authorize(LoginInfo loginInfo){
         Map<String, Object> map = loginInfo.toMap();
-        ResponseInfo<CardDTO> responseInfo = bankDatabaseManager.cardDAO.findOneById((String) (map.get("card_number")));
+        ResponseInfo<CardDTO> responseInfo = bankDatabaseManager.getCardDAO().findOneById((String) (map.get("card_number")));
         if(responseInfo.success){
             return Objects.equals(responseInfo.data.pin, map.get("pin"));
         }
@@ -32,19 +32,19 @@ public class Bank {
 
     public ResponseInfo<AccountDTO> getPersonalInformation(LoginInfo loginInfo){
         if(!authorize(loginInfo)) return new ResponseInfo<>(false, "Authorization failed", null);
-        CardDTO cardDTO = bankDatabaseManager.cardDAO.findOneById((String) loginInfo.toMap().get("card_number")).data;
-        return bankDatabaseManager.accountDAO.findOneById(cardDTO.account_id);
+        CardDTO cardDTO = bankDatabaseManager.getCardDAO().findOneById((String) loginInfo.toMap().get("card_number")).data;
+        return bankDatabaseManager.getAccountDAO().findOneById(cardDTO.account_id);
     }
 
     public ResponseInfo<CardDTO> getCardInformation(LoginInfo loginInfo){
         if(!authorize(loginInfo)) return new ResponseInfo<>(false, "Authorization failed", null);
-        return bankDatabaseManager.cardDAO.findOneById((String) loginInfo.toMap().get("card_number"));
+        return bankDatabaseManager.getCardDAO().findOneById((String) loginInfo.toMap().get("card_number"));
     }
 
     public ResponseInfo<Long> getBalance(LoginInfo loginInfo){
         ResponseInfo<CardDTO> cardDTOResponseInfo = getCardInformation(loginInfo);
         if(cardDTOResponseInfo.success){
-            return new ResponseInfo<>(true, null, cardDTOResponseInfo.data.balance);
+            return new ResponseInfo<>(true, cardDTOResponseInfo.message, cardDTOResponseInfo.data.balance);
         }
         else return new ResponseInfo<>(false, cardDTOResponseInfo.message, null);
     }
@@ -53,23 +53,23 @@ public class Bank {
         if(!authorize(loginInfo)) return new ResponseInfo<>(false, "Authorization failed", null);
         TransactionDTO transactionDTO = new TransactionDTO((String) loginInfo.toMap().get("card_number"),
                 transactionInputInfo.card_number, transactionInputInfo.amount);
-        return bankDatabaseManager.cardDAO.makeTransfer(transactionDTO);
+        return bankDatabaseManager.getCardDAO().makeTransfer(transactionDTO);
     }
 
     public ResponseInfo<NullType> withdrawMoney(LoginInfo loginInfo, long moneyAmount){
         if(!authorize(loginInfo)) return new ResponseInfo<>(false, "Authorization failed", null);
         TransactionDTO transactionDTO = new TransactionDTO((String) loginInfo.toMap().get("card_number"),
                 null, moneyAmount);
-        return bankDatabaseManager.cardDAO.makeTransfer(transactionDTO);
+        return bankDatabaseManager.getCardDAO().makeTransfer(transactionDTO);
     }
 
     public ResponseInfo<NullType> sendMoneyByPhoneNumber(LoginInfo loginInfo, TransactionInputInfo transactionInputInfo){
         if(!authorize(loginInfo)) return new ResponseInfo<>(false, "Authorization failed", null);
-        ResponseInfo<CardDTO> cardDTOResponseInfo = bankDatabaseManager.cardDAO.findOneByPhone(transactionInputInfo.phone_number);
+        ResponseInfo<CardDTO> cardDTOResponseInfo = bankDatabaseManager.getCardDAO().findOneByPhone(transactionInputInfo.phone_number);
         if(cardDTOResponseInfo.success){
             TransactionDTO transactionDTO = new TransactionDTO((String) loginInfo.toMap().get("card_number"),
                     cardDTOResponseInfo.data.card_number, transactionInputInfo.amount);
-            return bankDatabaseManager.cardDAO.makeTransfer(transactionDTO);
+            return bankDatabaseManager.getCardDAO().makeTransfer(transactionDTO);
         }
         else return new ResponseInfo<>(false, "Default card does not exist", null);
     }
@@ -80,7 +80,8 @@ public class Bank {
             case GET_PERSONAL_INFO: return getPersonalInformation(LoginInfo.fromMap(map));
             case GET_BALANCE: return getBalance(LoginInfo.fromMap(map));
             case SEND_BY_CARD_NUM: return sendMoneyByCardNumber(LoginInfo.fromMap(map), TransactionInputInfo.fromMap(map));
-            case WITHDRAW: return withdrawMoney(LoginInfo.fromMap(map), (long)map.get("amount"));
+            case GET_CARD_INFO: return getCardInformation(LoginInfo.fromMap(map));
+            case WITHDRAW: return withdrawMoney(LoginInfo.fromMap(map), ((Number)map.get("amount")).longValue());
             case SEND_BY_PHONE_NUM: return sendMoneyByPhoneNumber(LoginInfo.fromMap(map), TransactionInputInfo.fromMap(map));
             case AUTHORIZE: boolean aut = authorize(LoginInfo.fromMap(map));
             if(aut) return new ResponseInfo<>(true, null, true);

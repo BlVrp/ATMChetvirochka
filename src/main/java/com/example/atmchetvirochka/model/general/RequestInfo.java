@@ -11,6 +11,7 @@ public class RequestInfo {
         WITHDRAW,
         SEND_BY_PHONE_NUM,
 
+        MAINTENANCE,
         AUTHORIZE
     }
     public final String ATMid;
@@ -28,4 +29,6 @@ public class RequestInfo {
         RequestInfo requestInfo = (RequestInfo) obj;
         return Objects.equals(ATMid, requestInfo.ATMid) && Objects.equals(arguments, requestInfo.arguments) && Objects.equals(requestType, requestInfo.requestType);
     }
+
+
 }

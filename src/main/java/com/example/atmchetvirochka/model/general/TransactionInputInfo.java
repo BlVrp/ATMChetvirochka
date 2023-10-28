@@ -26,15 +26,15 @@ public class TransactionInputInfo implements Mappable {
 
     public Map<String, Object> toMap() {
         Map<String, Object>map = new HashMap<>();
-        map.put("card_number", card_number);
+        map.put("destination_card_number", card_number);
         map.put("amount", amount);
-        map.put("phone_number", phone_number);
+        map.put("destination_phone_number", phone_number);
         return map;
     }
 
     public static TransactionInputInfo fromMap(Map<String, Object> map) {
-        return new TransactionInputInfo((String) map.get("card_number"),
+        return new TransactionInputInfo((String) map.get("destination_card_number"),
                 (int) map.get("amount"),
-                (String) map.get("phone_number"));
+                (String) map.get("destination_phone_number"));
     }
 }

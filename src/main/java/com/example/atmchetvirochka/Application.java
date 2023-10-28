@@ -7,6 +7,7 @@ import com.example.atmchetvirochka.model.dto.CardDTO;
 import com.example.atmchetvirochka.model.general.LoginInfo;
 import com.example.atmchetvirochka.model.general.TransactionInputInfo;
 import com.example.atmchetvirochka.service.Bank;
+import com.example.atmchetvirochka.service.BankDatabaseManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -106,7 +107,7 @@ public class Application extends javafx.application.Application {
         cardDAO.create(cardDTO);
         cardDAO.create(cardDTO1);
 
-        Bank bank = new Bank();
+        Bank bank = new Bank(new BankDatabaseManager());
         LoginInfo loginInfo = new LoginInfo("12345678", "1111");
         System.out.println(bank.sendMoneyByPhoneNumber(loginInfo,
                 new TransactionInputInfo(null, 1000, "013242313")).message);
