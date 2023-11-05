@@ -41,10 +41,15 @@ public class AccountDAO extends DAO{
             try {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM ACCOUNT WHERE account_id = "+id);
                 if(resultSet.next()){
-                    String dateString = resultSet.getString("birth");
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
-                    ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString, formatter);
-                    Date result = Date.from(zonedDateTime.toInstant());
+                    Date result;
+                    try {
+                        String dateString = resultSet.getString("birth");
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+                        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString, formatter);
+                        result = Date.from(zonedDateTime.toInstant());
+                    }catch(Exception e){
+                        result = new Date(2002,2,2);
+                    }
                     accountDTO = new AccountDTO(resultSet.getLong("account_id"), resultSet.getString("owner_name"),
                             resultSet.getString("owner_surname"),
                             result,

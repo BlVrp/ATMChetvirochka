@@ -46,6 +46,9 @@ public class EditButtonsController{
     }
 
     void inputNumber(char num){
+        if(inputField.getText().equals("PIN")){
+            inputField.setText("");
+        }
         inputField.setText(inputField.getText()+num);
     }
 
@@ -54,6 +57,7 @@ public class EditButtonsController{
     }
 
     void clearNumber(){
+
         if(!inputField.getText().isEmpty()){
             inputField.setText(inputField.getText().substring(0, inputField.getText().length()-1));
         }
