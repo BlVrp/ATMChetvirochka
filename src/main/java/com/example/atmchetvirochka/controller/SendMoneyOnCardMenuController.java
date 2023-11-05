@@ -1,9 +1,17 @@
 package com.example.atmchetvirochka.controller;
 
+import com.example.atmchetvirochka.Application;
+import com.example.atmchetvirochka.ApplicationContext;
+import com.example.atmchetvirochka.model.general.LoginInfo;
+import com.example.atmchetvirochka.model.general.ResponseInfo;
+import com.example.atmchetvirochka.model.general.TransactionInputInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+
+import javax.lang.model.type.NullType;
+import java.io.IOException;
 
 public class SendMoneyOnCardMenuController {
     @FXML
@@ -21,17 +29,40 @@ public class SendMoneyOnCardMenuController {
     @FXML
     private Label cardNumber;
     @FXML
-    private Label incorrectCard;
+    private Label exception;
     @FXML
-    private Label incorrectCashNumber;
+    private EditButtonsController editButtonsController;
 
-    @FXML
-    private void backToMainMenu(MouseEvent e){
-
+    public void initialize(){
+        editButtonsController.setExternalInputField(cardNumber);
     }
 
     @FXML
-    private void sendMoney(MouseEvent e){
+    private void backToMainMenu() throws IOException {
+        Application.changeScene("/com/example/atmchetvirochka/screens/mainmenu-view.fxml");
+    }
 
+    @FXML
+    private void changeFieldUp(){
+        editButtonsController.setExternalInputField(cardNumber);
+    }
+    @FXML
+    private void changeFieldDown(){
+        editButtonsController.setExternalInputField(cashNumber);
+    }
+
+    @FXML
+    private void sendMoney(){
+        try {
+            ResponseInfo<NullType> response = ApplicationContext.getConnectorService().sendMoneyByCardNumber(new LoginInfo(ApplicationContext.getCardNumber(), ApplicationContext.getPin()),
+                    new TransactionInputInfo(cardNumber.getText(), Integer.parseInt(cashNumber.getText()), null));
+            if(response.success){
+                exception.setText("Success!");
+            }
+            else exception.setText(response.message);
+        }
+        catch (Exception e){
+            exception.setText("Incorrect amount");
+        }
     }
 }
