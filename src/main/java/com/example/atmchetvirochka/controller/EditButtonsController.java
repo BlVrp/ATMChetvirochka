@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class EditButtonsController{
-
     @FXML
     private Label inputField;
     @FXML
@@ -31,8 +30,6 @@ public class EditButtonsController{
     @FXML
     private Button clearButton;
 
-    private String initialLabel;
-
     public void initialize(){
         clearButton.setOnAction(e -> this.clearNumber());
         button0.setOnAction(e-> this.inputNumber('0'));
@@ -45,11 +42,13 @@ public class EditButtonsController{
         button7.setOnAction(e-> this.inputNumber('7'));
         button8.setOnAction(e-> this.inputNumber('8'));
         button9.setOnAction(e-> this.inputNumber('9'));
-
     }
 
     void inputNumber(char num){
-        if(inputField.getText().equals(initialLabel)){
+        try {
+            Integer.parseInt(inputField.getText());
+        }
+        catch (Exception ex){
             inputField.setText("");
         }
         inputField.setText(inputField.getText()+num);
@@ -57,10 +56,10 @@ public class EditButtonsController{
 
     public void setExternalInputField(Label externalInputField) {
         this.inputField = externalInputField;
-        initialLabel = inputField.getText();
     }
 
     void clearNumber(){
+
         if(!inputField.getText().isEmpty()){
             inputField.setText(inputField.getText().substring(0, inputField.getText().length()-1));
         }
