@@ -27,16 +27,12 @@ public class LoginMenuController {
     private Label pin;
 
     public void initialize(){
-        System.out.println("here2");
         editButtonsController.setExternalInputField(pin);
-        System.out.println("finished initialization");
         enterButton.setOnAction(e-> logIn());
-
     }
 
     void logIn(){
         ResponseInfo<Boolean> response = ApplicationContext.getConnectorService().authorize(new LoginInfo(ApplicationContext.getCardNumber(), pin.getText()));
-        System.out.println(response.data);
         if(response.data){
             incorrectPIN.setText("");
             try {
