@@ -49,6 +49,10 @@ public class EditButtonsController{
         inputField.setText(inputField.getText()+num);
     }
 
+    public void setExternalInputField(Label externalInputField) {
+        this.inputField = externalInputField;
+    }
+
     void clearNumber(){
         if(!inputField.getText().isEmpty()){
             inputField.setText(inputField.getText().substring(0, inputField.getText().length()-1));
