@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #00000010;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.atmchetvirochka.controller.PutCashOnCardMenuController">
+   <children>
+      <Button layoutX="55.0" layoutY="240.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="69.0" text="BACK" textFill="#000000c4">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="470.0" layoutY="240.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="69.0" text="Enter" textFill="#000000c2">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="55.0" layoutY="21.0" prefHeight="70.0" prefWidth="511.0" text="Write total sum of cash that you will put into ATM" textFill="#000000b1">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="82.0" prefHeight="62.0" prefWidth="344.0" text="Avaliable cash is grivna - any sum" textFill="#000000aa">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="192.0" layoutY="144.0" prefHeight="56.0" prefWidth="194.0" style="-fx-background-color: #00000007;" text="SUM" textFill="#00000072">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
