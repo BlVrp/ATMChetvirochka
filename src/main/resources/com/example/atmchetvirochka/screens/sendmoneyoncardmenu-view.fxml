@@ -32,17 +32,20 @@
             <Font name="System Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="cardNumber" layoutX="165.0" layoutY="59.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="CARD" textFill="#00000067">
+      <Label fx:id="cardNumber" layoutX="165.0" layoutY="84.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="CARD" textFill="#00000067">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="cashNumber" layoutX="165.0" layoutY="118.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="MONEY" textFill="#00000066">
+      <Label fx:id="cashNumber" layoutX="165.0" layoutY="146.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="MONEY" textFill="#00000066">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="exception" layoutX="118.0" layoutY="36.0" prefHeight="27.0" prefWidth="287.0" />
+      <Label fx:id="exception" layoutX="118.0" layoutY="36.0" prefHeight="35.0" prefWidth="311.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
    </AnchorPane>
    <fx:include fx:id="editButtons" layoutY="210" source="editbutton-view.fxml" />
 </AnchorPane>

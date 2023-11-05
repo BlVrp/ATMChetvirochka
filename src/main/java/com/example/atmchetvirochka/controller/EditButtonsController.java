@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class EditButtonsController{
+    boolean justInitialized;
 
     @FXML
     private Label inputField;
@@ -32,6 +33,7 @@ public class EditButtonsController{
     private Button clearButton;
 
     public void initialize(){
+        justInitialized = true;
         clearButton.setOnAction(e -> this.clearNumber());
         button0.setOnAction(e-> this.inputNumber('0'));
         button1.setOnAction(e-> this.inputNumber('1'));
@@ -46,8 +48,9 @@ public class EditButtonsController{
     }
 
     void inputNumber(char num){
-        if(inputField.getText().equals("PIN")){
+        if(justInitialized){
             inputField.setText("");
+            justInitialized = false;
         }
         inputField.setText(inputField.getText()+num);
     }
