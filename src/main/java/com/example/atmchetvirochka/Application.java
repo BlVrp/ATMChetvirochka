@@ -18,8 +18,11 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class Application extends javafx.application.Application {
+
+    private Stage primaryStage;
     @Override
     public void start(Stage stage) throws IOException {
+        primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/atmchetvirochka/screens/defaultmenu-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 720, 540);
         stage.setTitle("ATM");
@@ -33,6 +36,11 @@ public class Application extends javafx.application.Application {
             fillEmptyDatabase();
         }
         launch();
+    }
+    protected void changeScene(String resource) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(resource));
+        Scene scene = new Scene(fxmlLoader.load(), 720, 540);
+        this.primaryStage.setScene(scene);
     }
 
     private static void createEmptyDatabase(){
