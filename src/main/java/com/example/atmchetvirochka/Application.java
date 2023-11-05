@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/atmchetvirochka/screens/loginmenu-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/atmchetvirochka/screens/defaultmenu-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 720, 540);
         stage.setTitle("ATM");
         stage.setScene(scene);
