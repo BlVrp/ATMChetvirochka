@@ -43,6 +43,8 @@ public class Application extends javafx.application.Application {
     }
     public static void changeScene(String resource) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(resource));
+        System.out.println(Application.class.getResource(resource));
+        System.out.println(fxmlLoader.getResources());
         Scene scene = new Scene(fxmlLoader.load(), 720, 540);
         primaryStage.setScene(scene);
     }
