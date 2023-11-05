@@ -40,6 +40,7 @@ public class LoginMenuController {
         if(response.data){
             incorrectPIN.setText("");
             try {
+                ApplicationContext.setPin(pin.getText());
                 Application.changeScene("/com/example/atmchetvirochka/screens/mainmenu-view.fxml");
             } catch (IOException e) {
                 incorrectPIN.setText("error");
