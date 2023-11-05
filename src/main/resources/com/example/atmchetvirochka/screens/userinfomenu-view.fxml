@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.atmchetvirochka.controller.UserInfoMenuController">
+   <children>
+      <Button layoutX="67.0" layoutY="319.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="BACK" textFill="#000000c3">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="67.0" layoutY="26.0" prefHeight="50.0" prefWidth="383.0" text="Here your info" textFill="#000000c1">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="67.0" layoutY="70.0" prefHeight="109.0" prefWidth="511.0" textFill="#000000c1">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="179.0" prefHeight="133.0" prefWidth="511.0" textFill="#000000c1">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
