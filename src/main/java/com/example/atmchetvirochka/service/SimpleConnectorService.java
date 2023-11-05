@@ -10,13 +10,13 @@ import com.example.atmchetvirochka.model.general.TransactionInputInfo;
 import javax.lang.model.type.NullType;
 import java.util.Map;
 
-public class SimpleConnnectorService implements ConnectorService{
+public class SimpleConnectorService implements ConnectorService{
     Bank bank;
     String ATMid;
 
     Cypherator cypherator;
 
-    SimpleConnnectorService(Bank bank, String ATMid, Cypherator cypherator){
+    public SimpleConnectorService(Bank bank, String ATMid, Cypherator cypherator){
         this.cypherator = cypherator;
         this.bank = bank;
         this.ATMid = ATMid;

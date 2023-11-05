@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.lang.model.type.NullType;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +21,7 @@ class SimpleConnnectorServiceTest {
     private Bank bankMock;
 
     private Cypherator cypheratorMock;
-    private SimpleConnnectorService service;
+    private SimpleConnectorService service;
 
     private LoginInfo testLoginInfo;
 
@@ -32,7 +31,7 @@ class SimpleConnnectorServiceTest {
         bankMock = mock(Bank.class);
         cypheratorMock = mock(Cypherator.class);
         when(cypheratorMock.cypher(testLoginInfo.toMap())).thenReturn("cyphered");
-        service = new SimpleConnnectorService(bankMock, "TestATMid", cypheratorMock);
+        service = new SimpleConnectorService(bankMock, "TestATMid", cypheratorMock);
     }
 
     @Test

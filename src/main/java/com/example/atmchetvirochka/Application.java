@@ -20,8 +20,11 @@ import java.time.LocalDate;
 public class Application extends javafx.application.Application {
 
     private static Stage primaryStage;
+
+    public static Bank bank;
     @Override
     public void start(Stage stage) throws IOException {
+
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/atmchetvirochka/screens/defaultmenu-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 720, 540);
@@ -31,6 +34,7 @@ public class Application extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
+        bank = new Bank(new BankDatabaseManager());
         if(!(new File("src/main/resources/bankDatabase.sqlite").exists())){
             createEmptyDatabase();
             fillEmptyDatabase();
@@ -114,10 +118,5 @@ public class Application extends javafx.application.Application {
                 2030, 6, "1111", 5000, 2, 5, 1);
         cardDAO.create(cardDTO);
         cardDAO.create(cardDTO1);
-
-        Bank bank = new Bank(new BankDatabaseManager());
-        LoginInfo loginInfo = new LoginInfo("12345678", "1111");
-        System.out.println(bank.sendMoneyByPhoneNumber(loginInfo,
-                new TransactionInputInfo(null, 1000, "013242313")).message);
     }
 }
