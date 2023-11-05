@@ -14,7 +14,6 @@ import javax.lang.model.type.NullType;
 import java.io.IOException;
 
 public class SendMoneyByPhoneNumber {
-    private boolean phone = false;
     @FXML
     private Label textForUser;
     @FXML
@@ -28,9 +27,7 @@ public class SendMoneyByPhoneNumber {
     @FXML
     private Button upButton;
     @FXML
-    private Label incorrectCashNumber;
-    @FXML
-    private Label incorrectPhoneNumber;
+    private Label exception;
     @FXML
     private Label cashNumber;
     @FXML
@@ -38,32 +35,34 @@ public class SendMoneyByPhoneNumber {
 
     public void initialize(){
         editButtonsController.setExternalInputField(phoneNumber);
-        enterButton.setOnAction(e -> changeField());
     }
 
     @FXML
     private void backToMainMenu() throws IOException {
-        Application.changeScene("/com/example/atmchetvirochka/screens/loginmenu-view.fxml");
+        Application.changeScene("/com/example/atmchetvirochka/screens/mainmenu-view.fxml");
     }
 
-    private void changeField(){
-        phone = !phone;
-        editButtonsController.setExternalInputField(phone?phoneNumber:cashNumber);
+    @FXML
+    private void changeFieldUp(){
+        editButtonsController.setExternalInputField(phoneNumber);
+    }
+    @FXML
+    private void changeFieldDown(){
+        editButtonsController.setExternalInputField(cashNumber);
     }
 
     @FXML
     private void sendMoney(){
-        ResponseInfo<NullType> response = ApplicationContext.getConnectorService().sendMoneyByPhoneNumber(new LoginInfo(ApplicationContext.getCardNumber(), ApplicationContext.getPin()),
-                new TransactionInputInfo(null, Integer.parseInt(cashNumber.getText()), ""));
-        if(response.success){
-
-            try {
-                Application.changeScene("/com/example/atmchetvirochka/screens/mainmenu-view.fxml");
-            } catch (IOException e) {
-
+        try {
+            ResponseInfo<NullType> response = ApplicationContext.getConnectorService().sendMoneyByPhoneNumber(new LoginInfo(ApplicationContext.getCardNumber(), ApplicationContext.getPin()),
+                    new TransactionInputInfo(null, Integer.parseInt(cashNumber.getText()), phoneNumber.getText()));
+            if(response.success){
+                exception.setText("Success!");
             }
-
+            else exception.setText(response.message);
         }
-        //    incorrectPIN.setText("incorrect pin");
+        catch (Exception e){
+            exception.setText("Incorrect amount");
+        }
     }
 }

@@ -5,43 +5,47 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.atmchetvirochka.controller.SendMoneyOnCardMenuController">
-   <children>
-      <Button layoutX="67.0" layoutY="319.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="BACK" textFill="#000000c3">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.atmchetvirochka.controller.SendMoneyOnCardMenuController">
+   <AnchorPane prefHeight="212.0" prefWidth="600.0">
+      <Button layoutX="36.0" layoutY="146.0" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="50.0" prefWidth="50.0" text="BACK" textFill="#000000c3">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="509.0" layoutY="225.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Down" textFill="#000000a6">
+      <Button layoutX="496.0" layoutY="84.0" mnemonicParsing="false" onAction="#changeFieldDown" prefHeight="50.0" prefWidth="50.0" text="Down" textFill="#000000a6">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="509.0" layoutY="166.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Up" textFill="#000000a4">
+      <Button layoutX="496.0" layoutY="25.0" mnemonicParsing="false" onAction="#changeFieldUp" prefHeight="50.0" prefWidth="50.0" text="Up" textFill="#000000a4">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="509.0" layoutY="319.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Enter" textFill="#000000c3">
+      <Button layoutX="496.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendMoney" prefHeight="50.0" prefWidth="50.0" text="Enter" textFill="#000000c3">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="103.0" layoutY="72.0" prefHeight="50.0" prefWidth="383.0" text="Enter card number and amount of money" textFill="#000000c1">
+      <Label layoutX="103.0" prefHeight="50.0" prefWidth="383.0" text="Enter card number and amount of money" textFill="#000000c1">
          <font>
             <Font name="System Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="166.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="CARD" textFill="#00000067">
+      <Label fx:id="cardNumber" layoutX="165.0" layoutY="84.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="CARD" textFill="#00000067">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="225.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="MONEY" textFill="#00000066">
+      <Label fx:id="cashNumber" layoutX="165.0" layoutY="146.0" prefHeight="50.0" prefWidth="221.0" style="-fx-background-color: #00000010;" text="MONEY" textFill="#00000066">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-   </children>
+      <Label fx:id="exception" layoutX="118.0" layoutY="36.0" prefHeight="35.0" prefWidth="311.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+   </AnchorPane>
+   <fx:include fx:id="editButtons" layoutY="210" source="editbutton-view.fxml" />
 </AnchorPane>
