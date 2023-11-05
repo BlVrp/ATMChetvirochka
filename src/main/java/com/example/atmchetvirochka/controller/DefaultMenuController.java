@@ -1,5 +1,6 @@
 package com.example.atmchetvirochka.controller;
 
+import com.example.atmchetvirochka.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,10 +18,6 @@ public class DefaultMenuController {
     private Label putCardLabel;
     @FXML
     private void goToLoginMenu(MouseEvent e) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/atmchetvirochka/screens/loginmenu-view.fxml")));
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Application.changeScene("/com/example/atmchetvirochka/screens/loginmenu-view.fxml");
     }
 }

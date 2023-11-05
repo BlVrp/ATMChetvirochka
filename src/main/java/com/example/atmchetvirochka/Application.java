@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
 public class Application extends javafx.application.Application {
 
-    private Stage primaryStage;
+    private static Stage primaryStage;
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
@@ -37,10 +37,10 @@ public class Application extends javafx.application.Application {
         }
         launch();
     }
-    protected void changeScene(String resource) throws IOException {
+    public static void changeScene(String resource) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(resource));
         Scene scene = new Scene(fxmlLoader.load(), 720, 540);
-        this.primaryStage.setScene(scene);
+        primaryStage.setScene(scene);
     }
 
     private static void createEmptyDatabase(){
