@@ -10,7 +10,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label fx:id="putCardLabel" onMouseClicked="#onPutCardClick" text="Put card." textFill="#000000d4">
+    <Label fx:id="putCardLabel" onMouseClicked="#goToLoginMenu" text="Put card." textFill="#000000d4">
       <font>
          <Font name="System Italic" size="32.0" />
       </font></Label>

@@ -16,7 +16,7 @@ public class DefaultMenuController {
     @FXML
     private Label putCardLabel;
     @FXML
-    private void onPutCardClick(MouseEvent e) throws IOException {
+    private void goToLoginMenu(MouseEvent e) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/atmchetvirochka/screens/loginmenu-view.fxml")));
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
