@@ -15,7 +15,7 @@ This project is a basic simulation of an Automated Teller Machine (ATM) that run
 
 ### Installation
 1. **Download the Project:** 
-   - Download the ZIP file of the project from GitHub.
+   - Download the ZIP file of the project from the master branch.
 
 2. **Extract the Files:** 
    - Unzip the downloaded file to your desired location.
